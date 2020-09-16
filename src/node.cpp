@@ -186,6 +186,7 @@ int main(int argc, char * argv[]) {
     ros::init(argc, argv, "rplidar_node");
     
     std::string channel_type;
+    std::string scan_topic_name;
     std::string tcp_ip;
     std::string serial_port;
     int tcp_port = 20108;
@@ -197,8 +198,9 @@ int main(int argc, char * argv[]) {
     int angle_compensate_multiple = 1;//it stand of angle compensate at per 1 degree
     std::string scan_mode;
     ros::NodeHandle nh;
-    ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
+    ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan_topic_name", 1000);
     ros::NodeHandle nh_private("~");
+    nh_private.param<std::string>("scan_topic_name", scan_topic_name, "scan");
     nh_private.param<std::string>("channel_type", channel_type, "serial");
     nh_private.param<std::string>("tcp_ip", tcp_ip, "192.168.0.7"); 
     nh_private.param<int>("tcp_port", tcp_port, 20108);
